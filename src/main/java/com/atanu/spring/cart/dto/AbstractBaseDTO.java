@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Ignore unknown properties
+ * <br>
  * https://stackoverflow.com/questions/5455014/ignoring-new-fields-on-json-objects-using-jackson
  * 
  * @author Atanu Bhowmick
@@ -24,9 +25,9 @@ public abstract class AbstractBaseDTO implements Serializable {
 
 	private static final long serialVersionUID = 5274512655216948657L;
 
-	/*
-	 * Overriding toString method to return JSON String
-	 * 
+	/**
+	 * Overriding toString method to return JSON String 
+	 * <br>
 	 * https://stackoverflow.com/questions/16527932/ok-to-use-json-output-as-default
 	 * -for-tostring
 	 */

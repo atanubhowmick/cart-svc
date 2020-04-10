@@ -1,0 +1,10 @@
+/* Insert Cart Details */
+INSERT INTO CART_DETAILS VALUES (1, 1, 'Y', 1, NOW(), 1, NOW(), 0);
+INSERT INTO CART_DETAILS VALUES (2, 2, 'Y', 2, NOW(), 2, NOW(), 0);
+
+/* Insert Cart Product Details */
+INSERT INTO CART_DETAILS VALUES (1, 1, 2, 1, 'Y', 1, NOW(), 1, NOW(), 0);
+INSERT INTO CART_DETAILS VALUES (1, 1, 6, 1, 'Y', 1, NOW(), 1, NOW(), 0);
+INSERT INTO CART_DETAILS VALUES (1, 1, 11, 2, 'Y', 1, NOW(), 1, NOW(), 0);
+
+INSERT INTO CART_DETAILS VALUES (1, 2, 10, 4, 'Y', 1, NOW(), 1, NOW(), 0);
