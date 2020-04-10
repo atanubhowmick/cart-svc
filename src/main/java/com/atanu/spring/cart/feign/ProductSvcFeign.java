@@ -3,8 +3,9 @@
  */
 package com.atanu.spring.cart.feign;
 
+import java.util.List;
+
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +20,9 @@ import com.atanu.spring.cart.dto.QueryPageable;
  *
  */
 @FeignClient("product-svc")
-public interface ProductServiceFeign {
+public interface ProductSvcFeign {
 
 	@PostMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<GenericResponse<Page<ProductDetails>>> productsBySpecification(
+	public ResponseEntity<GenericResponse<List<ProductDetails>>> productsBySpecification(
 			@RequestBody QueryPageable queryPageable);
 }
