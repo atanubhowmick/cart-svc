@@ -9,14 +9,12 @@ package com.atanu.spring.cart.constant;
  */
 public enum ErrorCode {
 
-	PE001("No Product found"), 
-	PE002("No Search result found"),
-	PE003("Invalid Request. Page cannot be less than 0."),
-	PE004("Invalid Request. Size cannot be less than 1."),
-	PE005("Invalid Request. Some fields are missing."),
-	PE006("Invalid Json"),
+	CART_E001("No Product found"), 
+	CART_E002("No Search result found"),
+	CART_E006("Invalid Json"),
 	
-	PE100("");
+	CART_E500("Internal Server Error. Please try again later!");
+	
 	private String errorMsg;
 
 	private ErrorCode(String errorMsg) {

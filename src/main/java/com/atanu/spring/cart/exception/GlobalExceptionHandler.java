@@ -20,7 +20,7 @@ import com.atanu.spring.cart.dto.GenericResponse;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
-	private static final String UNEXPECTED_ERROR_CODE = "PE500";
+	private static final String UNEXPECTED_ERROR_CODE = "CART_E500";
 	private static final String UNEXPECTED_ERROR_MSG = "Internal Server Error. Please try again later!";
 
 	private static final Logger logger = LoggerFactory.getLogger(GlobalExceptionHandler.class);

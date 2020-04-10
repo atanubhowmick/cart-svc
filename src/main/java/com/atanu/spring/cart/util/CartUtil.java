@@ -46,7 +46,7 @@ public class CartUtil {
 		try {
 			t = mapper.readValue(json, clazz);
 		} catch (JsonProcessingException e) {
-			throw new CartException(ErrorCode.PE006.name(), ErrorCode.PE006.getErrorMsg(), e);
+			throw new CartException(ErrorCode.CART_E006.name(), ErrorCode.CART_E006.getErrorMsg(), e);
 		}
 		return t;
 	}
@@ -63,7 +63,7 @@ public class CartUtil {
 		try {
 			t = mapper.readValue(json, typeReference);
 		} catch (JsonProcessingException e) {
-			throw new CartException(ErrorCode.PE006.name(), ErrorCode.PE006.getErrorMsg(), e);
+			throw new CartException(ErrorCode.CART_E006.name(), ErrorCode.CART_E006.getErrorMsg(), e);
 		}
 		return t;
 	}
