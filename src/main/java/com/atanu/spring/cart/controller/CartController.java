@@ -33,7 +33,7 @@ public class CartController {
 	@ApiOperation(value = "Get Cart by Id", response = GenericResponse.class)
 	@GetMapping(value = "/get-by-id/{cart-id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GenericResponse<CartDetails>> getCartDetailsById(
-			@ApiParam(value = "Provide Product Id to get Product Details", required = true) @PathVariable("cart-id") Long cartId) {
+			@ApiParam(value = "Provide Cart Id to get Cart Details", required = true) @PathVariable("cart-id") Long cartId) {
 		GenericResponse<CartDetails> response = new GenericResponse<>(cartService.get(cartId));
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
@@ -41,7 +41,7 @@ public class CartController {
 	@ApiOperation(value = "Get Cart by User Id", response = GenericResponse.class)
 	@GetMapping(value = "/get-by-user-id/{user-id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GenericResponse<CartDetails>> getCartDetailsByUserId(
-			@ApiParam(value = "Provide Product Id to get Product Details", required = true) @PathVariable("cart-id") Long userId) {
+			@ApiParam(value = "Provide User Id to get Cart Details", required = true) @PathVariable("user-id") Long userId) {
 		GenericResponse<CartDetails> response = new GenericResponse<>(cartService.getByUserId(userId));
 		return new ResponseEntity<>(response, HttpStatus.OK);
 	}

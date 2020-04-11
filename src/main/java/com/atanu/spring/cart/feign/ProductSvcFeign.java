@@ -23,7 +23,7 @@ import com.atanu.spring.cart.dto.QueryPageable;
 @FeignClient("product-svc")
 public interface ProductSvcFeign {
 
-	@PostMapping(value = "/api/products", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/api/product/products", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GenericResponse<List<ProductDetails>>> productsBySpecification(
 			@RequestParam(value = "isListRequired", required = false) boolean isListRequired,
 			@RequestBody QueryPageable queryPageable);
