@@ -35,7 +35,7 @@ public class CartProductMappingEntity extends BaseEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "CART_PRODUCT_ID")
-	private Long cartId;
+	private Long cartProductId;
 
 	@Column(name = "PRODUCT_ID")
 	private Long productId;

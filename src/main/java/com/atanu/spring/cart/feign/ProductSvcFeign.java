@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.atanu.spring.cart.dto.GenericResponse;
 import com.atanu.spring.cart.dto.ProductDetails;
@@ -22,7 +23,8 @@ import com.atanu.spring.cart.dto.QueryPageable;
 @FeignClient("product-svc")
 public interface ProductSvcFeign {
 
-	@PostMapping(value = "/products", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/api/products", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GenericResponse<List<ProductDetails>>> productsBySpecification(
+			@RequestParam(value = "isListRequired", required = false) boolean isListRequired,
 			@RequestBody QueryPageable queryPageable);
 }

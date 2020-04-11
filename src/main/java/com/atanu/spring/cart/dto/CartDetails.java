@@ -22,5 +22,5 @@ public class CartDetails extends AbstractBaseDTO {
 
 	private Long cartId;
 	private List<ProductDetails> products;
-	private Double totalAmount;
+	private Double totalPrice;
 }

@@ -14,9 +14,17 @@ public interface BaseService<T, K> {
 	/**
 	 * Find by Id
 	 * 
-	 * @param ID
-	 * @return
+	 * @param id
+	 * @return T
 	 */
 	T get(K id);
+	
+	/**
+	 * Find by User Id
+	 * 
+	 * @param userId
+	 * @return T
+	 */
+	T getByUserId(Long userId);
 
 }

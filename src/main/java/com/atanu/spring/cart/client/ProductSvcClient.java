@@ -31,10 +31,10 @@ public class ProductSvcClient implements BaseClient {
 	@Autowired
 	private ProductSvcFeign productSvcFeign;
 
-	@HystrixCommand(fallbackMethod = "productSvc_fallback")
+	@HystrixCommand(fallbackMethod = "getProducts_fallback")
 	public List<ProductDetails> getProducts(QueryPageable queryPageable) {
 		ResponseEntity<GenericResponse<List<ProductDetails>>> response = this.productSvcFeign
-				.productsBySpecification(queryPageable);
+				.productsBySpecification(true, queryPageable);
 		return this.validateResponse(response);
 	}
 
@@ -43,7 +43,7 @@ public class ProductSvcClient implements BaseClient {
 	 * 
 	 */
 	@SuppressWarnings("unused")
-	private List<ProductDetails> productSvc_fallback(QueryPageable queryPageable) {
+	private List<ProductDetails> getProducts_fallback(QueryPageable queryPageable) {
 		logger.error("Product Service is down. FallBack route enabled.");
 		throw new CartException(ErrorCode.CART_E500.name(), "Product Service is down. Will be back shortly.");
 	}
