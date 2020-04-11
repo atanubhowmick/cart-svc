@@ -13,8 +13,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.atanu.spring.cart.dto.CartDetails;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -45,6 +43,6 @@ public class CartProductMappingEntity extends BaseEntity {
 
 	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "CART_ID")
-	private CartDetails cartDetails;
+	private CartEntity cartEntity;
 
 }

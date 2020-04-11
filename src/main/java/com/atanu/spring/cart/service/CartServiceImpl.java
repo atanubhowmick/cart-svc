@@ -6,9 +6,12 @@ package com.atanu.spring.cart.service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.slf4j.event.Level;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import com.atanu.spring.cart.annotation.LogMethodCall;
 import com.atanu.spring.cart.client.ProductSvcClient;
 import com.atanu.spring.cart.constant.QueryFilterEnum;
 import com.atanu.spring.cart.constant.QueryOperatorEnum;
@@ -25,6 +28,8 @@ import com.atanu.spring.cart.repository.CartRepository;
  * @author Atanu Bhowmick
  *
  */
+@Service
+@LogMethodCall(logLevel = Level.INFO, showParams = true, showResult = true)
 public class CartServiceImpl implements BaseService<CartDetails, Long> {
 
 	@Autowired
