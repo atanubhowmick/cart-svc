@@ -45,6 +45,6 @@ public class ProductDetails extends AbstractBaseDTO {
 	@ApiModelProperty(value = "Colour Details")
 	private ColourDetails colourDetails;
 
-	@ApiModelProperty(value = "Available Product Details")
-	private AvailableProductDetails availableProductDetails;
+	@ApiModelProperty(value = "Available Product count", example = "20")
+	private Long availableProductCount;
 }
