@@ -36,7 +36,7 @@ public class CartEntity extends BaseEntity {
 	@Column(name = "CART_ID")
 	private Long cartId;
 
-	@Column(name = "USER_ID")
+	@Column(name = "USER_ID", unique = true)
 	private Long userId;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "cartEntity")

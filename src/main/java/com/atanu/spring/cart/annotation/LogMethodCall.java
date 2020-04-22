@@ -24,7 +24,7 @@ import org.slf4j.event.Level;
 @Documented
 public @interface LogMethodCall {
 
-	Level logLevel() default Level.DEBUG;
+	Level logLevel() default Level.INFO;
 
 	boolean showParams() default false;
 

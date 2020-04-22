@@ -73,7 +73,6 @@ public class QueryPageableSpecification<T> implements Specification<T> {
 	 * @param criteriaBuilder
 	 * @return Predicate
 	 */
-	@SuppressWarnings("unchecked")
 	private Predicate filterPredicate(Predicate predicate, Root<T> root, CriteriaBuilder criteriaBuilder) {
 		if (null != queryPageable && !CollectionUtils.isEmpty(queryPageable.getFilters())) {
 			for (QueryFilter filter : queryPageable.getFilters()) {
@@ -94,36 +93,22 @@ public class QueryPageableSpecification<T> implements Specification<T> {
 				case NOT_EQUAL:
 					filterPredicate = criteriaBuilder.notEqual(path, value);
 					break;
+				case IN:
+					filterPredicate = this.in(path, value);
+					break;
+				case GREATER_THAN:
+					filterPredicate = this.greaterThan(criteriaBuilder, path, value);
+					break;
+				case LESS_THAN:
+					filterPredicate = this.lessThan(criteriaBuilder, path, value);
+					break;
 				case GREATER_THAN_EQUAL:
-					if (value instanceof Long) {
-						filterPredicate = criteriaBuilder.greaterThanOrEqualTo(path.as(Long.class), (Long) value);
-					} else if (value instanceof Integer) {
-						filterPredicate = criteriaBuilder.greaterThanOrEqualTo(path.as(Integer.class), (Integer) value);
-					} else if (value instanceof Double) {
-						filterPredicate = criteriaBuilder.greaterThanOrEqualTo(path.as(Double.class), (Double) value);
-					} else if (value instanceof Date) {
-						filterPredicate = criteriaBuilder.greaterThanOrEqualTo(path.as(Date.class), (Date) value);
-					} else if (value instanceof String) {
-						filterPredicate = criteriaBuilder.greaterThanOrEqualTo(path.as(String.class), (String) value);
-					}
+					filterPredicate = this.greaterThanOrEqualTo(criteriaBuilder, path, value);
 					break;
 				case LESS_THAN_EQUAL:
-					if (value instanceof Long) {
-						filterPredicate = criteriaBuilder.lessThanOrEqualTo(path.as(Long.class), (Long) value);
-					} else if (value instanceof Integer) {
-						filterPredicate = criteriaBuilder.lessThanOrEqualTo(path.as(Integer.class), (Integer) value);
-					} else if (value instanceof Double) {
-						filterPredicate = criteriaBuilder.lessThanOrEqualTo(path.as(Double.class), (Double) value);
-					} else if (value instanceof Date) {
-						filterPredicate = criteriaBuilder.lessThanOrEqualTo(path.as(Date.class), (Date) value);
-					} else if (value instanceof String) {
-						filterPredicate = criteriaBuilder.lessThanOrEqualTo(path.as(String.class), (String) value);
-					}
+					filterPredicate = this.lessThanOrEqualTo(criteriaBuilder, path, value);
 					break;
-				case IN:
-					if (value instanceof List && !CollectionUtils.isEmpty((List<Object>) value)) {
-						filterPredicate = path.in((List<Object>) value);
-					}
+				default:
 					break;
 				}
 
@@ -145,9 +130,9 @@ public class QueryPageableSpecification<T> implements Specification<T> {
 	 * @param criteriaBuilder
 	 * @return Predicate
 	 */
-	@SuppressWarnings("unchecked")
 	private Predicate searchPredicate(Predicate predicate, Root<T> root, CriteriaBuilder criteriaBuilder) {
 		List<Predicate> searchPredicates = null;
+		Predicate searchPredicate = null;
 		if (null != queryPageable && !CollectionUtils.isEmpty(queryPageable.getSearches())) {
 			searchPredicates = new ArrayList<>();
 			for (QuerySearch search : queryPageable.getSearches()) {
@@ -156,48 +141,46 @@ public class QueryPageableSpecification<T> implements Specification<T> {
 				Object value = search.getSearchValue();
 				switch (search.getSearchOperator()) {
 				case IS_NULL:
+					searchPredicate = criteriaBuilder.isNull(path);
+					break;
+				case IS_NOT_NULL:
+					searchPredicate = criteriaBuilder.isNotNull(path);
+					break;
+				case NOT_EQUAL:
+				case NOT_LIKE:
+					searchPredicate = criteriaBuilder.like(criteriaBuilder.upper(path.as(String.class)),
+							"%" + search.getSearchValue().toString().toUpperCase() + "%").not();
 					break;
 				case IN:
-					searchPredicates.add(path.in((List<Object>) search.getSearchValue()));
+					searchPredicate = this.in(path, value);
+					break;
+				case GREATER_THAN:
+					searchPredicate = this.greaterThan(criteriaBuilder, path, value);
+					break;
+				case LESS_THAN:
+					searchPredicate = this.lessThan(criteriaBuilder, path, value);
 					break;
 				case GREATER_THAN_EQUAL:
-					if (value instanceof Long) {
-						searchPredicates.add(criteriaBuilder.greaterThanOrEqualTo(path.as(Long.class), (Long) value));
-					} else if (value instanceof Integer) {
-						searchPredicates.add(criteriaBuilder.greaterThanOrEqualTo(path.as(Integer.class), (Integer) value));
-					} else if (value instanceof Double) {
-						searchPredicates.add(criteriaBuilder.greaterThanOrEqualTo(path.as(Double.class), (Double) value));
-					} else if (value instanceof Date) {
-						searchPredicates.add(criteriaBuilder.greaterThanOrEqualTo(path.as(Date.class), (Date) value));
-					} else if (value instanceof String) {
-						searchPredicates.add(criteriaBuilder.greaterThanOrEqualTo(path.as(String.class), (String) value));
-					}
+					searchPredicate = this.greaterThanOrEqualTo(criteriaBuilder, path, value);
 					break;
 				case LESS_THAN_EQUAL:
-					if (value instanceof Long) {
-						searchPredicates.add(criteriaBuilder.lessThanOrEqualTo(path.as(Long.class), (Long) value));
-					} else if (value instanceof Integer) {
-						searchPredicates.add(criteriaBuilder.lessThanOrEqualTo(path.as(Integer.class), (Integer) value));
-					} else if (value instanceof Double) {
-						searchPredicates.add(criteriaBuilder.lessThanOrEqualTo(path.as(Double.class), (Double) value));
-					} else if (value instanceof Date) {
-						searchPredicates.add(criteriaBuilder.lessThanOrEqualTo(path.as(Date.class), (Date) value));
-					} else if (value instanceof String) {
-						searchPredicates.add(criteriaBuilder.lessThanOrEqualTo(path.as(String.class), (String) value));
-					}
+					searchPredicate = this.lessThanOrEqualTo(criteriaBuilder, path, value);
 					break;
 				default:
-					searchPredicates.add(criteriaBuilder.like(criteriaBuilder.upper(path.as(String.class)),
-							"%" + search.getSearchValue().toString().toUpperCase() + "%"));
+					searchPredicate = criteriaBuilder.like(criteriaBuilder.upper(path.as(String.class)),
+							"%" + search.getSearchValue().toString().toUpperCase() + "%");
 					break;
+				}
+				if(null != searchPredicate) {
+					searchPredicates.add(searchPredicate);
 				}
 			}
 		}
 		if (!CollectionUtils.isEmpty(searchPredicates)) {
 			// Search is OR condition
-			Predicate searchPredicate = criteriaBuilder
+			Predicate allSearchPredicate = criteriaBuilder
 					.or(searchPredicates.toArray(new Predicate[searchPredicates.size()]));
-			predicate = criteriaBuilder.and(predicate, searchPredicate);
+			predicate = criteriaBuilder.and(predicate, allSearchPredicate);
 		}
 		return predicate;
 	}
@@ -224,5 +207,108 @@ public class QueryPageableSpecification<T> implements Specification<T> {
 			path = join.get(columns[columns.length - 1]);
 		}
 		return path;
+	}
+
+	/**
+	 * @param criteriaBuilder
+	 * @param path
+	 * @param value
+	 * @return Predicate
+	 */
+	private Predicate greaterThanOrEqualTo(CriteriaBuilder criteriaBuilder, Path<Object> path, Object value) {
+		Predicate predicate = null;
+		if (value instanceof Long) {
+			predicate = criteriaBuilder.greaterThanOrEqualTo(path.as(Long.class), (Long) value);
+		} else if (value instanceof Integer) {
+			predicate = criteriaBuilder.greaterThanOrEqualTo(path.as(Integer.class), (Integer) value);
+		} else if (value instanceof Double) {
+			predicate = criteriaBuilder.greaterThanOrEqualTo(path.as(Double.class), (Double) value);
+		} else if (value instanceof Date) {
+			predicate = criteriaBuilder.greaterThanOrEqualTo(path.as(Date.class), (Date) value);
+		} else if (value instanceof String) {
+			predicate = criteriaBuilder.greaterThanOrEqualTo(path.as(String.class), (String) value);
+		}
+		return predicate;
+	}
+
+	/**
+	 * @param criteriaBuilder
+	 * @param path
+	 * @param value
+	 * @return Predicate
+	 */
+	private Predicate greaterThan(CriteriaBuilder criteriaBuilder, Path<Object> path, Object value) {
+		Predicate predicate = null;
+		if (value instanceof Long) {
+			predicate = criteriaBuilder.greaterThan(path.as(Long.class), (Long) value);
+		} else if (value instanceof Integer) {
+			predicate = criteriaBuilder.greaterThan(path.as(Integer.class), (Integer) value);
+		} else if (value instanceof Double) {
+			predicate = criteriaBuilder.greaterThan(path.as(Double.class), (Double) value);
+		} else if (value instanceof Date) {
+			predicate = criteriaBuilder.greaterThan(path.as(Date.class), (Date) value);
+		} else if (value instanceof String) {
+			predicate = criteriaBuilder.greaterThan(path.as(String.class), (String) value);
+		}
+		return predicate;
+	}
+
+	/**
+	 * @param criteriaBuilder
+	 * @param path
+	 * @param value
+	 * @return Predicate
+	 */
+	private Predicate lessThan(CriteriaBuilder criteriaBuilder, Path<Object> path, Object value) {
+		Predicate predicate = null;
+		if (value instanceof Long) {
+			predicate = criteriaBuilder.lessThan(path.as(Long.class), (Long) value);
+		} else if (value instanceof Integer) {
+			predicate = criteriaBuilder.lessThan(path.as(Integer.class), (Integer) value);
+		} else if (value instanceof Double) {
+			predicate = criteriaBuilder.lessThan(path.as(Double.class), (Double) value);
+		} else if (value instanceof Date) {
+			predicate = criteriaBuilder.lessThan(path.as(Date.class), (Date) value);
+		} else if (value instanceof String) {
+			predicate = criteriaBuilder.lessThan(path.as(String.class), (String) value);
+		}
+		return predicate;
+	}
+
+	/**
+	 * @param criteriaBuilder
+	 * @param path
+	 * @param value
+	 * @return Predicate
+	 */
+	private Predicate lessThanOrEqualTo(CriteriaBuilder criteriaBuilder, Path<Object> path, Object value) {
+		Predicate predicate = null;
+		if (value instanceof Long) {
+			predicate = criteriaBuilder.lessThanOrEqualTo(path.as(Long.class), (Long) value);
+		} else if (value instanceof Integer) {
+			predicate = criteriaBuilder.lessThanOrEqualTo(path.as(Integer.class), (Integer) value);
+		} else if (value instanceof Double) {
+			predicate = criteriaBuilder.lessThanOrEqualTo(path.as(Double.class), (Double) value);
+		} else if (value instanceof Date) {
+			predicate = criteriaBuilder.lessThanOrEqualTo(path.as(Date.class), (Date) value);
+		} else if (value instanceof String) {
+			predicate = criteriaBuilder.lessThanOrEqualTo(path.as(String.class), (String) value);
+		}
+		return predicate;
+	}
+	
+	/**
+	 * 
+	 * @param path
+	 * @param value
+	 * @return Predicate
+	 */
+	@SuppressWarnings("unchecked")
+	private Predicate in(Path<Object> path, Object value) {
+		Predicate predicate = null;
+		if (value instanceof List && !CollectionUtils.isEmpty((List<Object>) value)) {
+			predicate = path.in((List<Object>) value);
+		}
+		return predicate;
 	}
 }

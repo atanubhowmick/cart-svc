@@ -21,6 +21,7 @@ public class CartDetails extends AbstractBaseDTO {
 	private static final long serialVersionUID = -8115173794209557247L;
 
 	private Long cartId;
+	private Long userId;
 	private List<ProductDetails> products;
 	private Double totalPrice;
 }
