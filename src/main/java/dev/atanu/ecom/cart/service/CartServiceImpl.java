@@ -89,8 +89,11 @@ public class CartServiceImpl implements BaseService<CartDetails, Long> {
 						product.setProductCount(map.get(product.getProductId()).get(0).getProductCount());
 					}
 				});
+				
 				Double totalPrice = products.stream()
 						.collect(Collectors.summingDouble(pdt -> pdt.getProductPrice() * pdt.getProductCount()));
+				logger.debug("Total Price: {}", totalPrice);
+				
 				cartDetails.setProducts(products);
 				cartDetails.setTotalPrice(
 						Double.valueOf(CartUtil.formatDecimal(CartConstant.TWO_DECIMAL_PLACE, totalPrice)));

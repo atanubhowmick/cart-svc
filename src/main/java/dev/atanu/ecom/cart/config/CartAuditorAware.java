@@ -15,7 +15,7 @@ import dev.atanu.ecom.cart.constant.CartConstant;
  * @author Atanu Bhowmick
  *
  */
-public class CartAuditAware implements AuditorAware<Long>{
+public class CartAuditorAware implements AuditorAware<Long>{
 
 	@Override
 	public Optional<Long> getCurrentAuditor() {

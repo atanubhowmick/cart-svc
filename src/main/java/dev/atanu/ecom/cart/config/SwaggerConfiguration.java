@@ -3,6 +3,7 @@
  */
 package dev.atanu.ecom.cart.config;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -24,21 +25,29 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class SwaggerConfiguration {
 
+	@Value("${spring.application.name}")
+	private String title;
+
+	@Value("${info.app.description}")
+	private String description;
+	
+	@Value("${info.app.version:1.0.0}")
+	private String version;
+
 	@Bean
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
-				.apis(RequestHandlerSelectors.basePackage("com.atanu.spring.cart"))
-				.paths(PathSelectors.regex("/.*"))
-				.build().apiInfo(apiEndPointsInfo());
+				.apis(RequestHandlerSelectors.basePackage("dev.atanu.ecom")).paths(PathSelectors.regex("/.*")).build()
+				.apiInfo(apiEndPointsInfo());
 	}
 
 	/**
 	 * @return ApiInfo
 	 */
 	private ApiInfo apiEndPointsInfo() {
-		return new ApiInfoBuilder().title("Product Svc")
-				.description("Cart Svc provide REST API(s) for cart details, add/delete from cart")
+		return new ApiInfoBuilder().title(this.title).description(this.description)
 				.contact(new Contact("Atanu Bhowmick", "https://github.com/atanubhowmick", "mail2atanu007@gmail.com"))
+				.version(this.version)
 				.build();
 	}
 }
