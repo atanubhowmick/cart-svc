@@ -20,6 +20,7 @@ import org.springframework.util.CollectionUtils;
 
 import dev.atanu.ecom.cart.annotation.LogMethodCall;
 import dev.atanu.ecom.cart.client.ProductSvcClient;
+import dev.atanu.ecom.cart.constant.CartConstant;
 import dev.atanu.ecom.cart.constant.ErrorCode;
 import dev.atanu.ecom.cart.constant.QueryFilterEnum;
 import dev.atanu.ecom.cart.constant.QueryOperatorEnum;
@@ -90,6 +91,12 @@ public class CartServiceImpl implements BaseService<CartDetails, Long> {
 		List<CartProductMappingEntity> mappings = entity.getCartProductMappings();
 		boolean isUpdated = false;
 		if (!CollectionUtils.isEmpty(mappings)) {
+			if (mappings.size() > CartConstant.MAX_PRODUCT_COUNT) {
+				throw new CartException(ErrorCode.CART_E004.name(),
+						String.format(ErrorCode.CART_E003.getErrorMsg(), CartConstant.MAX_PRODUCT_COUNT),
+						HttpStatus.BAD_REQUEST);
+			}
+
 			Optional<CartProductMappingEntity> mappingOptional = mappings.stream()
 					.filter(mapping -> mapping.getProductId().equals(productId)).findAny();
 			if (!mappingOptional.isPresent()) {
