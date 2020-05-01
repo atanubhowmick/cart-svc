@@ -9,8 +9,9 @@ package dev.atanu.ecom.cart.constant;
  */
 public enum ErrorCode {
 
-	CART_E001("No Product found"), 
+	CART_E001("Product not found"), 
 	CART_E002("No Search result found"),
+	CART_E003("Cart information not found"),
 	CART_E006("Invalid Json"),
 	
 	CART_E500("Internal Server Error. Please try again later!");

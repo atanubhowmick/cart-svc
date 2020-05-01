@@ -10,12 +10,12 @@ import org.springframework.data.domain.AuditorAware;
 import dev.atanu.ecom.cart.constant.CartConstant;
 
 /**
- * Custom AuditAware for Product Service
+ * Custom AuditAware for Cart Service
  * 
  * @author Atanu Bhowmick
  *
  */
-public class CartAuditorAware implements AuditorAware<Long>{
+public class EcomAuditorAware implements AuditorAware<Long>{
 
 	@Override
 	public Optional<Long> getCurrentAuditor() {

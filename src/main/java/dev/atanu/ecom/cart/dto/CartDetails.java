@@ -23,5 +23,4 @@ public class CartDetails extends AbstractBaseDTO {
 	private Long cartId;
 	private Long userId;
 	private List<ProductDetails> products;
-	private Double totalPrice;
 }

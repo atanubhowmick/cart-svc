@@ -3,7 +3,6 @@
  */
 package dev.atanu.ecom.cart.entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,10 +37,7 @@ public class CartProductMappingEntity extends BaseEntity {
 	@Column(name = "PRODUCT_ID")
 	private Long productId;
 
-	@Column(name = "PRODUCT_COUNT", nullable = false)
-	private Long productCount;
-
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "CART_ID")
 	private CartEntity cartEntity;
 

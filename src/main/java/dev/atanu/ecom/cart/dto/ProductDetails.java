@@ -47,7 +47,4 @@ public class ProductDetails extends AbstractBaseDTO {
 
 	@ApiModelProperty(value = "Available Product count", example = "20")
 	private Long availableProductCount;
-	
-	@ApiModelProperty(value = "Count that added to the card", example = "2")
-	private Long productCount;
 }
