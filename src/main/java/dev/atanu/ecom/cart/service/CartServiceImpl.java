@@ -91,7 +91,7 @@ public class CartServiceImpl implements BaseService<CartDetails, Long> {
 		List<CartProductMappingEntity> mappings = entity.getCartProductMappings();
 		boolean isUpdated = false;
 		if (!CollectionUtils.isEmpty(mappings)) {
-			if (mappings.size() > CartConstant.MAX_PRODUCT_COUNT) {
+			if (mappings.size() >= CartConstant.MAX_PRODUCT_COUNT) {
 				throw new CartException(ErrorCode.CART_E004.name(),
 						String.format(ErrorCode.CART_E003.getErrorMsg(), CartConstant.MAX_PRODUCT_COUNT),
 						HttpStatus.BAD_REQUEST);
