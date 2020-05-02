@@ -49,7 +49,7 @@ public class CartController {
 	}
 
 	@ApiOperation(value = "Add product to cart", response = GenericResponse.class)
-	@PostMapping(value = "/add/{cart-id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(value = "/add-to-cart/{cart-id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GenericResponse<CartDetails>> addToCart(
 			@ApiParam(value = "Cart Id", required = true) @PathVariable("cart-id") Long id,
 			@ApiParam(value = "Product Id", required = true) @RequestParam(name = "productId") Long productId) {
@@ -58,7 +58,7 @@ public class CartController {
 	}
 
 	@ApiOperation(value = "Delete product from cart", response = GenericResponse.class)
-	@DeleteMapping(value = "/delete/{cart-id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@DeleteMapping(value = "/delete-from-cart/{cart-id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<GenericResponse<CartDetails>> deleteFromCart(
 			@ApiParam(value = "Cart Id", required = true) @PathVariable("cart-id") Long id,
 			@ApiParam(value = "Product Id", required = true) @RequestParam(name = "productId") Long productId) {
