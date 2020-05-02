@@ -81,6 +81,11 @@ public class CartServiceImpl implements BaseService<CartDetails, Long> {
 			throw new CartException(ErrorCode.CART_E001.name(), ErrorCode.CART_E001.getErrorMsg(),
 					HttpStatus.NOT_FOUND);
 		}
+		
+		if (Objects.isNull(productDetails.getAvailableProductCount()) && productDetails.getAvailableProductCount() <= 0) {
+			throw new CartException(ErrorCode.CART_E005.name(), ErrorCode.CART_E005.getErrorMsg(),
+					HttpStatus.NOT_FOUND);
+		}
 
 		CartEntity entity = cartRepository.findByCartIdAndActiveStatus(cartId, StatusEnum.ACTIVE.getValue());
 		if (Objects.isNull(entity)) {

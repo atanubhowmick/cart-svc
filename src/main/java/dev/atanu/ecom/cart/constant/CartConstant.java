@@ -4,7 +4,7 @@
 package dev.atanu.ecom.cart.constant;
 
 /**
- * This class contains all the constant values for Product Service
+ * This class contains all the constant values for Cart Service
  * 
  * @author Atanu Bhowmick
  *
