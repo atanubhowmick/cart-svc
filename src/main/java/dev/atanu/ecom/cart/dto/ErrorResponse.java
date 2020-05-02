@@ -36,5 +36,19 @@ public class ErrorResponse extends AbstractBaseDTO {
 	
 	@ApiModelProperty(value = "HTTP Status code", example = "200")
 	private int httpStatusCode;
+	
+	/**
+	 * Constructor
+	 * 
+	 * @param errorCode
+	 * @param errorMessage
+	 * @param httpStatus
+	 */
+	public ErrorResponse(String errorCode, String errorMessage, HttpStatus httpStatus) {
+		this.errorCode = errorCode;
+		this.errorMessage = errorMessage;
+		this.httpStatus = httpStatus;
+		this.httpStatusCode = httpStatus.value();
+	}
 
 }
