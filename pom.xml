@@ -20,6 +20,8 @@
 		<spring-cloud.version>Hoxton.SR3</spring-cloud.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <resource.directory>src/main/resources</resource.directory>
+        <maven.build.timestamp.format>dd MMM, yyyy - hh:mm:ssa z</maven.build.timestamp.format>
+		<build.number>${maven.build.timestamp}</build.number>
 	</properties>
 
 	<dependencies>
