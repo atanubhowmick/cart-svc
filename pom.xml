@@ -98,6 +98,12 @@
 			<artifactId>spring-cloud-starter-sleuth</artifactId>
 		</dependency>
 		
+		<!-- Zipkin Dependency for Tracing : port 9411 -->
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-zipkin</artifactId>
+		</dependency>
+		
 		<!-- Swagger2 Dependency -->
 		<dependency>
 			<groupId>io.springfox</groupId>
