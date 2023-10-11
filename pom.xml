@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>dev.atanu.ecom</groupId>
 	<artifactId>ecom-cart-svc</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<name>ecom-cart-svc</name>
 	<description>Cart Service</description>
 
@@ -177,7 +177,7 @@
 		<profile>
 			<id>docker</id>
 			<properties>
-				<server.port>8092</server.port>
+				<server.port>0</server.port>
 				<active.profile>docker</active.profile>
 				<eureka.defaultzone>http://172.17.0.1:8085/eureka/</eureka.defaultzone>
 				<instance.ip>172.17.0.1</instance.ip>

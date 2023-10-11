@@ -11,7 +11,7 @@
 
 	<network>
 		<cluster-members>
-			<address>localhost:5701</address>
+			<address>ecom-cache-server:5701</address>
 		</cluster-members>
 	</network>
 
