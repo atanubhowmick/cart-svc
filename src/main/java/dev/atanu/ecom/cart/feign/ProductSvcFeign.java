@@ -22,7 +22,7 @@ import dev.atanu.ecom.cart.dto.QueryPageable;
  * @author Atanu Bhowmick
  *
  */
-@FeignClient("product-svc")
+@FeignClient("ecom-product-svc")
 public interface ProductSvcFeign {
 
 	@GetMapping(value = "/api/product/get-by-id/{product-id}", produces = MediaType.APPLICATION_JSON_VALUE)
